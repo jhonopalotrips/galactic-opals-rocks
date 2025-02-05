@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,12 +20,16 @@
             justify-content: center;
             gap: 20px;
         }
-        nav a {
+        nav a, nav button {
             color: white;
             text-decoration: none;
             padding: 0.5rem 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
-        nav a:hover {
+        nav a:hover, nav button:hover {
             color: yellow;
         }
         .gallery {
@@ -43,29 +47,56 @@
             padding: 20px;
         }
     </style>
+    <script>
+        function toggleLanguage() {
+            const lang = document.documentElement.lang === 'en' ? 'es' : 'en';
+            document.documentElement.lang = lang;
+
+            const texts = {
+                en: {
+                    home: 'Home',
+                    inventory: 'Inventory',
+                    comingSoon: 'Inventory Coming Soon',
+                    working: 'We are working on the inventory of all rocks in stock.'
+                },
+                es: {
+                    home: 'Inicio',
+                    inventory: 'Inventario',
+                    comingSoon: 'Inventario Próximamente',
+                    working: 'Estamos trabajando en el inventario de todas las rocas en stock.'
+                }
+            };
+
+            document.getElementById('nav-home').textContent = texts[lang].home;
+            document.getElementById('nav-inventory').textContent = texts[lang].inventory;
+            document.getElementById('inventory-title').textContent = texts[lang].comingSoon;
+            document.getElementById('inventory-desc').textContent = texts[lang].working;
+        }
+    </script>
 </head>
 <body>
     <nav>
-        <a href="#home">Inicio</a>
-        <a href="#inventory">Inventario</a>
+        <a href="#home" id="nav-home">Home</a>
+        <a href="#inventory" id="nav-inventory">Inventory</a>
+        <button onclick="toggleLanguage()">🌐</button>
     </nav>
 
     <div id="home" class="section">
         <h1>Galactic OPALS Rocks</h1>
         <p>Cosmic Opals and Minerals</p>
         <div class="gallery">
-            <img src="IMG-20250127-WA0005.jpg" alt="Opal 1">
-            <img src="IMG-20250127-WA0006.jpg" alt="Opal 2">
-            <img src="IMG-20250127-WA0007.jpg" alt="Opal 3">
-            <img src="IMG-20250127-WA0008.jpg" alt="Opal 4">
-            <img src="IMG-20250127-WA0002.jpg" alt="Opal 5">
-            <img src="IMG-20250127-WA0003.jpg" alt="Opal 6">
+            <img src="/images/IMG-20250127-WA0005.jpg" alt="Opal 1">
+            <img src="/images/IMG-20250127-WA0006.jpg" alt="Opal 2">
+            <img src="/images/IMG-20250127-WA0007.jpg" alt="Opal 3">
+            <img src="/images/IMG-20250127-WA0008.jpg" alt="Opal 4">
+            <img src="/images/IMG-20250127-WA0002.jpg" alt="Opal 5">
+            <img src="/images/IMG-20250127-WA0003.jpg" alt="Opal 6">
         </div>
     </div>
 
     <div id="inventory" class="section">
-        <h2>Inventario Próximamente</h2>
-        <p>Estamos trabajando en el inventario de todas las rocas en stock.</p>
+        <h2 id="inventory-title">Inventory Coming Soon</h2>
+        <p id="inventory-desc">We are working on the inventory of all rocks in stock.</p>
     </div>
 </body>
 </html>
