@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Galactic OPALS Rocks - Cosmic Opals and Minerals">
+    <meta property="og:title" content="Galactic OPALS Rocks">
+    <meta property="og:description" content="Descubre opalos y minerales cósmicos únicos en Galactic OPALS Rocks.">
+    <meta property="og:image" content="rock-icon.png">
+    <meta property="og:url" content="https://galacticopalsrocks.com">
     <title>Galactic OPALS Rocks</title>
+    <link rel="icon" type="image/png" href="rock-icon.png">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,6 +18,8 @@
             margin: 0;
             padding: 0;
             text-align: center;
+            max-width: 1200px;
+            margin: auto;
         }
         nav {
             background-color: #222;
@@ -32,6 +40,9 @@
         nav a:hover, nav button:hover {
             color: yellow;
         }
+        .active {
+            border-bottom: 2px solid yellow;
+        }
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -40,44 +51,105 @@
         }
         .gallery img {
             width: 100%;
+            height: 200px;
+            object-fit: cover;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
         }
         .section {
             padding: 20px;
+        }
+        footer {
+            background-color: #222;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+        }
+        .social-icons img {
+            width: 100%;
+            border-radius: 50%;
         }
     </style>
     <script>
         function toggleLanguage() {
             const lang = document.documentElement.lang === 'en' ? 'es' : 'en';
             document.documentElement.lang = lang;
+            localStorage.setItem('preferredLanguage', lang);
 
             const texts = {
                 en: {
                     home: 'Home',
                     inventory: 'Inventory',
+                    about: 'About Us',
+                    contact: 'Contact',
+                    terms: 'Terms & Conditions',
                     comingSoon: 'Inventory Coming Soon',
-                    working: 'We are working on the inventory of all rocks in stock.'
+                    working: 'We are working on the inventory of all rocks in stock.',
+                    followUs: 'Follow us on'
                 },
                 es: {
                     home: 'Inicio',
                     inventory: 'Inventario',
+                    about: 'Nosotros',
+                    contact: 'Contacto',
+                    terms: 'Términos y Condiciones',
                     comingSoon: 'Inventario Próximamente',
-                    working: 'Estamos trabajando en el inventario de todas las rocas en stock.'
+                    working: 'Estamos trabajando en el inventario de todas las rocas en stock.',
+                    followUs: 'Síguenos en'
                 }
             };
 
             document.getElementById('nav-home').textContent = texts[lang].home;
             document.getElementById('nav-inventory').textContent = texts[lang].inventory;
+            document.getElementById('nav-about').textContent = texts[lang].about;
+            document.getElementById('nav-contact').textContent = texts[lang].contact;
+            document.getElementById('nav-terms').textContent = texts[lang].terms;
             document.getElementById('inventory-title').textContent = texts[lang].comingSoon;
             document.getElementById('inventory-desc').textContent = texts[lang].working;
+            document.getElementById('follow-text').textContent = texts[lang].followUs;
         }
+
+        function setActiveLink() {
+            const links = document.querySelectorAll('nav a');
+            links.forEach(link => {
+                link.classList.remove('active');
+                if (window.location.hash === link.getAttribute('href')) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+            document.documentElement.lang = savedLang;
+            toggleLanguage();  
+            setActiveLink();
+        });
+
+        window.addEventListener("hashchange", setActiveLink);
     </script>
 </head>
 <body>
     <nav>
-        <a href="#home" id="nav-home">Home</a>
+        <a href="#home" id="nav-home" class="active">Home</a>
         <a href="#inventory" id="nav-inventory">Inventory</a>
+        <a href="#about" id="nav-about">About Us</a>
+        <a href="#contact" id="nav-contact">Contact</a>
+        <a href="#terms" id="nav-terms">Terms & Conditions</a>
         <button onclick="toggleLanguage()">🌐</button>
     </nav>
 
@@ -85,12 +157,10 @@
         <h1>Galactic OPALS Rocks</h1>
         <p>Cosmic Opals and Minerals</p>
         <div class="gallery">
-            <img src="IMG-20250127-WA0005.jpg" alt="Opal 1">
-            <img src="IMG-20250127-WA0006.jpg" alt="Opal 2">
-            <img src="IMG-20250127-WA0007.jpg" alt="Opal 3">
-            <img src="IMG-20250127-WA0008.jpg" alt="Opal 4">
-            <img src="IMG-20250127-WA0002.jpg" alt="Opal 5">
-            <img src="IMG-20250127-WA0003.jpg" alt="Opal 6">
+            <img src="IMG-20250127-WA0005.jpg" alt="Opal 1" loading="lazy">
+            <img src="IMG-20250127-WA0006.jpg" alt="Opal 2" loading="lazy">
+            <img src="IMG-20250127-WA0007.jpg" alt="Opal 3" loading="lazy">
+            <img src="IMG-20250127-WA0008.jpg" alt="Opal 4" loading="lazy">
         </div>
     </div>
 
@@ -98,5 +168,21 @@
         <h2 id="inventory-title">Inventory Coming Soon</h2>
         <p id="inventory-desc">We are working on the inventory of all rocks in stock.</p>
     </div>
+
+    <footer>
+        <p id="follow-text">Follow us on</p>
+        <div class="social-icons">
+            <a href="https://www.tiktok.com/@galactic.rocks2" target="_blank">
+                <img src="tiktok-icon.png" alt="TikTok">
+            </a>
+            <a href="https://www.instagram.com/galactic._.rocks" target="_blank">
+                <img src="instagram-icon.png" alt="Instagram">
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61572483608742" target="_blank">
+                <img src="facebook-icon.png" alt="Facebook">
+            </a>
+        </div>
+        <p>&copy; 2025 Galactic OPALS Rocks. All rights reserved.</p>
+    </footer>
 </body>
 </html>
